@@ -39,6 +39,39 @@
 		line-height: 1;
 	}
 
+	.task {
+    cursor: pointer;
+    padding: 10px;
+	}
+
+	.task:hover {
+		background-color: lightgray;
+		text-decoration: line-through;
+	}
+
+	.completed {
+    text-decoration: line-through;
+	color: #888;
+	}
+
+	.delete-form {
+    display: inline;
+	}
+
+	.delete-button {
+		border: none;
+		background: none;
+		color: #aaa;
+		font-size: 14px;
+		cursor: pointer;
+		margin-left: 10px;
+		padding: 0;
+	}
+
+	.delete-button:hover {
+		color: black;
+	}
+
 	ol, ul {
 		list-style: none;
 	}
@@ -122,8 +155,6 @@
 		-webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		-ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
-		border-bottom: dotted 1px;
-		color: #e89980;
 		text-decoration: none;
 	}
 
@@ -2481,7 +2512,7 @@
 /* List */
 
 	ol {
-		list-style: decimal;
+		list-style: none;
 		margin: 0 0 2em 0;
 		padding-left: 1.25em;
 	}
@@ -2491,7 +2522,7 @@
 		}
 
 	ul {
-		list-style: disc;
+		list-style: none;
 		margin: 0 0 2em 0;
 		padding-left: 1em;
 	}
@@ -2934,9 +2965,9 @@
 		background: #444;
 		color: #bbb;
 		cursor: default;
-		height: 3.25em;
+		height: 2.25em;
 		left: 0;
-		line-height: 3.25em;
+		line-height: 2.25em;
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -3163,12 +3194,12 @@
 	#banner {
 		background-attachment: scroll,							fixed;
 		background-color: #666;
-		background-image: url("images/overlay.png"), url("../../images/banner.jpg");
+		background-image: url("images/overlay.png"), url("/static/images/banner.jpg");
 		background-position: top left,						center center;
 		background-repeat: repeat,							no-repeat;
 		background-size: auto,							cover;
 		color: #fff;
-		padding: 12em 0 20em 0;
+		padding: 6em 0 8em 0;
 		text-align: center;
 	}
 
@@ -3484,7 +3515,7 @@
 		/* Header */
 
 			#page-wrapper {
-				padding-top: 0;
+				padding-top: 3em;
 			}
 
 			#header {
