@@ -9,20 +9,41 @@ TO DO:
 """
 
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Boolean
-from datetime import datetime
+from datetime import date
 
 app = Flask(__name__)
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///to_do.db"
-# db = SQLAlchemy(app)
+# DATABASE
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///to_do.db"
+db = SQLAlchemy()
+db.init_app(app)
 
-@app.route("/")
+class Todo(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    todo_item: Mapped[str] = mapped_column(String(150), nullable=False)
+    complete: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    date_created: Mapped[date] = mapped_column(nullable=False)
+
+with app.app_context():
+    db.create_all()
+
+# PAGES
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("index.html", date=datetime.today().strftime("%d/%m"))
+    if request.method == "POST":
+        new_todo = Todo(
+            todo_item=request.form["task"],
+            complete=False,
+            date_created=date.today()
+        )
+        db.session.add(new_todo)
+        db.session.commit()
+        
+    return render_template("index.html", date=date.today().strftime("%d/%m"))
 
 
 
