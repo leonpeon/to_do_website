@@ -31,6 +31,13 @@ class Todo(db.Model):
 with app.app_context():
     db.create_all()
 
+# Deletes old tasks
+db.session.execute(db.delete(Todo).where(Todo.date_created != date.today()))
+db.session.commit()
+
+# Gets list of task from the database
+task_list = db.session.execute(db.select(Todo).order_by(Todo.id)).scalars().all()
+
 # PAGES
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -43,7 +50,7 @@ def home():
         db.session.add(new_todo)
         db.session.commit()
         
-    return render_template("index.html", date=date.today().strftime("%d/%m"))
+    return render_template("index.html", date=date.today().strftime("%d/%m"), tasks=task_list)
 
 
 
